@@ -1,5 +1,5 @@
 ---
-- name: Playbook to fetch server informations using setup module
+- name: Playbook to fetch server informations using setup modules
   hosts: all
   tasks:
     - name: Print OS name
