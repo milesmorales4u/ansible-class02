@@ -1,0 +1,11 @@
+---
+- name: Playbook to fetch server informations using setup module
+  hosts: all
+  tasks:
+    - name: Print OS name
+      debug:
+        var: ansible_distribution
+
+    - name: Print OS family
+      debug:
+        var: ansible_os_family 

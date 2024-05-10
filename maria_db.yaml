@@ -1,0 +1,50 @@
+---
+- name: install mariadb and add database
+  hosts: dbservers
+  vars_files: 
+    - group_vars/all
+  #vars:
+    #dbname: database2
+    #dbuser: user2
+    #dbpass: asd123.
+  tasks:
+    - name: This is a task to print DATABASE the output by using debug module
+      debug:
+        msg: "The database name = {{dbname}}, user created = {{dbuser}} with password = {{dbpass}}"
+
+    - name: install mariadb server
+      yum:
+        name: mariadb-server
+        state: latest
+
+    - name: start and enable service
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    - name: install python library for mysql
+      yum:
+        name: python3-PyMySQL
+        state: latest
+
+    - name: create database with name '{{dbname}}'
+      mysql_db:
+        name: "{{dbname}}"
+        state: present
+        login_user: root
+        login_password: ''
+        login_unix_socket: /var/lib/mysql/mysql.sock  
+      register: dbout
+
+    - name: create user inside database
+      mysql_user:
+        name: "{{dbuser}}"
+        password: "{{dbpass}}"
+        login_user: root
+        login_password: ''
+        login_unix_socket: /var/lib/mysql/mysql.sock  
+
+    - name: Debug module to print the output using register 
+      debug:
+        var: dbout

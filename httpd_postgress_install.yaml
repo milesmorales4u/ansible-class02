@@ -1,0 +1,21 @@
+---
+- name: install httpd in al web servers 
+  hosts: webservers
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: latest
+
+    - name: start and enable httpd service 
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+- hosts: dbservers
+  tasks:
+    - name: install postgress sql in database server group
+      yum:
+        name: postgresql-server
+        state: latest

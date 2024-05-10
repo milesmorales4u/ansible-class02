@@ -1,0 +1,10 @@
+dbname: database4
+dbuser: user4
+dbpass: asd123....
+
+regular_user: miles
+regular_user_password: 'asd'
+regular_user_comment: helo miles
+regular_user_uid: 1010
+regular_user_primarygroup: earth
+regular_user_addigroup: wheel

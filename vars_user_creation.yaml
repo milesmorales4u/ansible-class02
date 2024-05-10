@@ -1,0 +1,32 @@
+---
+- name: Playbook to create user using varibale declared outside playbook
+  hosts: all
+  vars_files:
+    - group_vars/all
+
+  tasks:
+    - name: create the group if not exist
+      group:
+        name: "{{regular_user_primarygroup}}"
+        state: present
+
+    - name: creating user
+      user:
+        name: "{{regular_user}}"
+        comment: "{{regular_user_comment}}"
+        uid: "{{regular_user_uid}}"
+        group: "{{regular_user_primarygroup}}"
+        groups: "{{regular_user_addigroup}}"
+        append: yes
+      register: user_out
+    
+    - name: printing user creation output
+      debug:
+        var: user_out
+
+    - name: print user name
+      debug:
+        var: user_out.name
+    - name: Print user shell
+      debug:
+        var: user_out.shell

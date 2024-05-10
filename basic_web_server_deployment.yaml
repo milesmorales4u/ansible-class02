@@ -1,0 +1,41 @@
+---
+- name: Basic web server deployment using Ansible
+  hosts: webservers
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: latest
+
+    - name: start and enable httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: create document directory
+      file:
+        path: /var/www/html
+        state: directory
+        mode: '0755'
+
+    - name: copy index file to document directory
+      copy:
+        src: index.html
+        dest: /var/www/html/
+
+    - name: add http  to firewall
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+
+    - name: reload firewall
+      service:
+        name: firewalld
+        state: reloaded
+
+    - name: restart service
+      service:
+        name: httpd
+        state: restarted
