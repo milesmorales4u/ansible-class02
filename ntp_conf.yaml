@@ -1,0 +1,40 @@
+---
+- name: Configure NTP server in all Client machine
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Install NTP and other service in Alma linux
+      yum:
+        name: "{{item}}"
+        state: latest
+      when: ansible_distribution == "AlmaLinux"
+      loop:
+        - chrony
+        - wget
+        - git
+        - zip
+
+    - name: Install NTP and ather service in Ubuntu
+      apt:
+        name: "{{item}}"
+        state: latest
+      when: ansible_distribution == "Ubuntu"
+      loop:
+        - ntp
+        - git
+        - zip
+        - wget
+
+    - name: Start and enable service in Alma Linux
+      service: 
+        name: chronyd
+        state: started
+        enabled: yes 
+      when: ansible_distribution == "AlmaLinux"
+
+    - name: Start and enable service in Ubuntu 
+      service:
+        name: ntp
+        state: started
+        enabled: yes
+      when: ansible_distribution == "Ubuntu"
