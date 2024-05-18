@@ -38,3 +38,34 @@
         state: started
         enabled: yes
       when: ansible_distribution == "Ubuntu"
+
+    - name: Deploy NTP configuration in Ubuntu using Template module
+      template:
+        src: template/ntp_ubuntu
+        dest: /etc/ntp.conf
+        backup: yes
+      when: ansible_distribution == "Ubuntu"
+      notify:
+        - restart ntp
+
+    - name: Deploy NTP configuration in AlmaLinux using Template module
+      template:
+        src: template/ntp_alma
+        dest: /etc/chrony.conf
+        backup: yes
+      when: ansible_distribution == "AlmaLinux"
+      notify:
+        - restart chronyd
+
+  handlers:
+    - name: restart ntp
+      service:
+        name: ntp
+        state: restarted
+      when: ansible_distribution == "Ubuntu"
+
+    - name: restart chronyd
+      service:
+        name: chronyd
+        state: restarted
+      when: ansible_distribution == "AlmaLinux"
