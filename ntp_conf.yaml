@@ -39,6 +39,11 @@
         enabled: yes
       when: ansible_distribution == "Ubuntu"
 
+    - name: Configure Motd in all servers
+      copy:
+        content: '#This server is managed by Ansible Control Node !!' 
+        dest: /etc/motd
+
     - name: Deploy NTP configuration in Ubuntu using Template module
       template:
         src: template/ntp_ubuntu
