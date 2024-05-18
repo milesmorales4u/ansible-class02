@@ -8,4 +8,11 @@
 
     - name: Print OS family
       debug:
-        var: ansible_os_family 
+        var: ansible_os_family
+
+    - name: Print the Free RAM memory
+      debug: 
+        var: ansible_memory_mb.real.free 
+    - name: Print tbe used RAM memory
+      debug:
+        var: ansible_memory_mb.real.used
