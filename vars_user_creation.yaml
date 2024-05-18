@@ -3,7 +3,6 @@
   hosts: all
   vars_files:
     - group_vars/all
-
   tasks:
     - name: create the group if not exist
       group:
