@@ -1,7 +1,6 @@
 dbname: database4
 dbuser: user4
 dbpass: asd123....
-
 regular_user: miles
 regular_user_password: 'asd'
 regular_user_comment: helo miles
