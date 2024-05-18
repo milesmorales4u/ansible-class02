@@ -3,10 +3,8 @@
   hosts: dbservers
   vars_files: 
     - group_vars/all
-  #vars:
-    #dbname: database2
-    #dbuser: user2
-    #dbpass: asd123.
+  vars:
+    dbname: database2
   tasks:
     - name: This is a task to print DATABASE the output by using debug module
       debug:
